@@ -1,0 +1,122 @@
+.dialog-container {
+    .mint-header {
+        background-color: #fff;
+        color: #000;
+        border-bottom:1px solid #B6B6B6;
+    }
+    .dialog-panel {
+        box-sizing: border-box;
+        height: 100%;
+        padding-bottom: rem(50px);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .dialog-footer {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        position: absolute;
+        z-index: 500;
+        bottom: 0;
+        height: rem(150px);
+        width: 100%;
+        background-color: #FFF;
+        .more-app-icon {
+            float: left;
+            @include square(rem(78px), rem(14px));
+            @include circle();
+            margin: rem(35px) 0 0 rem(20px);
+            border: 1px solid #333;
+            background-color: #fdf4c7;
+            color: #333;
+            z-index: 1;
+        }
+        .more-app-icon:hover {
+            background-color: #f9db57;
+        }
+        .footer-right-input {
+            @include column-flex();
+        }
+        .footer-right {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            .user-account-icon {
+                float: right;
+                margin: rem(35px) rem(20px) 0 0;
+                font-size: rem(80px);
+            }
+            .speech-or-input-big,
+            .speech-or-input-small {
+                @include square(rem(130px), rem(80px));
+                @include circle();
+                background-color: #fdf4c7;
+                &:hover {
+                    background-color: #fdf4c7;
+                }
+            }
+            .speech-or-input-big {
+                position: absolute;
+                left: 50%;
+                top: rem(10px);
+                margin-left: rem(-65px);
+            }
+            .speech-or-input-small {
+                @include square(rem(80px), rem(40px));
+            }
+            .input-text-wrapper {
+                margin-left: rem(116px);
+            }
+            .input-text {
+                @include square(rem(80px), rem(14px), rem(400px));
+                @include circle(0);
+                text-align: left;
+                padding: 0 rem(20px);
+                border: none;
+                border-bottom: 1px solid #999;
+                outline:none;
+            }
+            .input-text-wrapper,
+            .speech-or-input-small,
+            .send-btn {
+                display: inline-block;
+                margin-top: rem(35px);
+            }
+            .send-btn {
+                @include square(rem(60px), rem(28px));
+                @include circle(2px);
+                padding: 0 rem(10px);
+                margin: rem(45px) rem(20px) 0 0;
+                color: #fff;
+                text-decoration: none;
+                background-color: #c8c8c8;
+            }
+        }
+        .more-app-container {
+            @include column-flex();
+            justify-content: space-around;
+            align-items: center;
+            height: rem(226px);
+            width: 100%;
+            position: absolute;
+            top: rem(-226px);
+            border-top: 1px solid #b6b6b6;
+            color: #4a4a4a;
+            &-app-imgbox {
+                @include square(rem(128px), rem(60px));
+                @include circle(10px);
+                border: 1px solid #f9db57;
+                background-color: #fdf4c7;
+            }
+            &-app:hover {
+                &-imgbox {
+                    background-color: #fbea91;
+                }
+            }
+            &-text {
+                text-align: center;
+                line-height: rem(40px);
+            }
+        }
+    }
+}
