@@ -1,18 +1,19 @@
 <template>
     <div class="other-speak-text">
         <div class="other-speak-text-avatar">
-            <img :src="userInfo.avatar" />
+            <img src="../resource/image/xiaozhi.svg" />
         </div>
-        <!-- 图片 -->
+        <!-- 图片
         <div class="other-speak-text-box"
-            v-if="['png', 'jpeg', 'jpg', 'png', 'fvg'].indexOf(userInfo.content.match(/[^\.]\w*$/)[0])">
+            v-if="/[^\.]\w*$/.test(userInfo.content)">
             <img :src="userInfo.content" />
             <div class="left-arrow">
                 <div class="arrow-bg"></div>
             </div>
         </div>
-        <div class="other-speak-text-box" v-else>
-            <img :src="userInfo.content" />
+         -->
+        <div class="other-speak-text-box">
+            <div>{{userInfo.content}}</div>
             <div class="left-arrow">
                 <div class="arrow-bg"></div>
             </div>

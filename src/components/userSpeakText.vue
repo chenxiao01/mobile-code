@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="user-speak-text-avatar">
-            <img :src="userInfo.avatar" />
+            <img src="../resource/image/user.svg" />
         </div>
     </div>
 </template>

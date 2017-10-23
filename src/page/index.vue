@@ -59,6 +59,7 @@
 </template>
 <script>
 import {uploadImage, dataURItoBlob} from '../util.js';
+import {defaultTip} from '../config.js';
 export default {
     components: {
         userSpeakText: () => import('../components/userSpeakText'),
@@ -68,22 +69,23 @@ export default {
         return {
             isRadio: false,
             questionInput: '',
-            showMore: true,
+            showMore: false,
             imageValue: '',
-            dialogueComponents: [{
-                component: 'userSpeakText',
-                userInfo: {
-                    content: '哈哈',
-                    avatar: '../resource/image/user.jpeg'
+            dialogueComponents: [
+                {
+                    component: 'userSpeakText',
+                    userInfo: {
+                        content: '哈哈',
+                        avatar: '../resource/image/user.jpeg'
+                    }
+                },
+                {
+                    component: 'otherAnswerText',
+                    userInfo: {
+                        content: '返回信息返回信息返回信息返回信息返回信息返回信息返回',
+                        avatar: '../resource/image/user.jpeg'
+                    }
                 }
-            },
-            {
-                            component: 'otherAnswerText',
-                            userInfo: {
-                                content: '返回信息返回信息返回信息返回信息返回信息返回信息返回信息返回信息返回信息返回信息返回信息返回信息',
-                                avatar: '../resource/image/user.jpeg'
-                            }
-                        }
             ]
         }
     },
@@ -94,7 +96,7 @@ export default {
             this.imageValue = e.target.value;
             const me = this;
             const img = e.target.files[0];
-            const reader = new FileReader();  
+            const reader = new FileReader();
             reader.readAsDataURL(img);
             reader.onload = function(e){ // reader onload start  
                 // 上传图片
@@ -104,11 +106,23 @@ export default {
                             Toast('上传失败请重试！');
                         }
                         me.imageValue = '';
+                        const data = resp.data;
                         me.addDialogueComponents('userSpeakText', {
                             userInfo: {
-                                content: resp.data,
+                                content: data,
                                 avatar: '../resource/image/user.jpeg'
                             }
+                        });
+                        $.get('/xiaozhi/haha?method=health_rec', {
+                            path: encodeURIComponent(data)
+                        }, res => {
+                            console.log(res);
+                            me.addDialogueComponents('otherAnswerText', {
+                                userInfo: {
+                                    content: res.data,
+                                    avatar: '../resource/image/xiaozhi.jpg'
+                                }
+                            });
                         });
                     });
             }
@@ -130,7 +144,27 @@ export default {
             this.isRadio = true;
         },
         sendBtnClick() {
-            
+            if ($.trim(this.questionInput) === '') {
+                return;
+            }
+            const me = this;
+            $.get('/xiaozhi/haha?method=language_rec', {
+                content: encodeURIComponent(this.questionInput)
+            }, resp => {
+                me.addDialogueComponents('userSpeakText', {
+                    userInfo: {
+                        content: me.questionInput,
+                        avatar: '../resource/image/user.jpeg'
+                    }
+                });
+                me.questionInput = '';
+                me.addDialogueComponents('otherAnswerText', {
+                    userInfo: {
+                        content: resp.data || defaultTip,
+                        avatar: '../resource/image/xiaozhi.jpg'
+                    }
+                });
+            });
         },
         photoClick() {
             this.cameraSheetVisible = true;

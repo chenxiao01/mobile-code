@@ -7,7 +7,7 @@
     .dialog-panel {
         box-sizing: border-box;
         height: 100%;
-        padding: rem(80px) 0;
+        padding: rem(100px) 0 rem(160px) 0;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -80,7 +80,7 @@
                 margin-left: rem(120px);
                 .input-text {
                     box-sizing: border-box;
-                    @include square(rem(80px), rem(14px), 100%);
+                    @include square(rem(80px), rem(40px), 100%);
                     @include circle(0);
                     text-align: left;
                     padding: 0 rem(20px);
