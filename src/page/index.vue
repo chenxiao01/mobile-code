@@ -149,7 +149,7 @@ export default {
             }
             const me = this;
             $.get('/xiaozhi/haha?method=language_rec', {
-                content: encodeURIComponent(this.questionInput)
+                content: this.questionInput
             }, resp => {
                 me.addDialogueComponents('userSpeakText', {
                     userInfo: {
@@ -160,7 +160,7 @@ export default {
                 me.questionInput = '';
                 me.addDialogueComponents('otherAnswerText', {
                     userInfo: {
-                        content: resp.data || defaultTip,
+                        content: resp.data.abstract || defaultTip,
                         avatar: '../resource/image/xiaozhi.jpg'
                     }
                 });
