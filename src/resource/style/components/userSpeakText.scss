@@ -1,0 +1,47 @@
+.user-speak-text {
+    $grey: #E0E0E0;
+    width: 100%;
+    @include column-flex();
+    justify-content: flex-end;
+    &-box,
+    &-avatar {
+        display: inline-block;
+        margin-right: rem(20px);
+    }
+    &-box {
+        @include circle(rem(4px));
+        border: 1px solid #C7C7C7;
+        background-color: $grey;
+        position: relative;
+        padding: rem(10px);
+        line-height: rem(30px);
+        margin: 0 rem(20px);
+        .right-arrow,
+        .arrow-bg {
+            position: absolute;
+            height: 0;
+            width: 0;
+        }
+        .right-arrow {
+            top: 0px;
+            right: -6px;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 6px solid;
+            border-left-color: #C7C7C7;
+        }
+        .arrow-bg {
+            top: -5px;
+            right: 1px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid;
+            border-left-color: $grey;
+        }
+    }
+    &-avatar {
+        @include square(rem(80px));
+        @include circle();
+        background-color: $grey;
+    }
+}

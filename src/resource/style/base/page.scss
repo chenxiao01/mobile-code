@@ -7,6 +7,12 @@
     left: 0;
     background-color: #f8f8f8;
 }
+.hide {
+    display: none;
+}
+.opacity {
+    opacity: 0;
+}
 @mixin square($height, $font-size: rem(12px), $width: $height) {
     height: $height;
     width: $width;

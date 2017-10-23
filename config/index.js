@@ -23,15 +23,21 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8888,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/vote/**': {
-            target: 'http://192.168.31.248:8080/', // 你接口的域名
+        '/xiaozhi': {
+            target: 'http://127.0.0.1:8604/', // 你接口的域名
             secure: false,
             changeOrigin: false,
+            pathRewrite: {'^/xiaozhi/haha': ''}
+        },
+        '/data': {
+            target: 'http://127.0.0.1:8604/', // 你接口的域名
+            secure: false,
+            changeOrigin: false
         }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
