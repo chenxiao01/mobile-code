@@ -45,6 +45,7 @@
         @include circle();
         background-color: $grey;
         overflow: hidden;
+        flex-shrink: 0;
         img {
             width: rem(80px);
         }

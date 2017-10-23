@@ -9,7 +9,7 @@
                 <span class="fa fa-plus"></span>
             </div>
             <div class="footer-right" v-if="isRadio">
-                <div class="speech-or-input-big" @click="speechClick">
+                <div class="speech-or-input-big" id="touchArea">
                     <span class="fa fa-microphone"></span>
                 </div>
                 <span class="fa fa-user-circle-o user-account-icon"></span>
@@ -90,6 +90,27 @@ export default {
         }
     },
     mounted: function () {
+        let timeOutEvent = 0;
+        const me = this;
+        let $parentEle = $('.dialog-footer');
+        console.log($parentEle);
+        $parentEle.on('touchstart', '#touchArea', function(e){
+                    timeOutEvent = setTimeout(function () {
+                        timeOutEvent = 0;
+                        // 长按事件触发
+                    },500);
+                    e.preventDefault();  
+                }).on('touchmove', function(){
+                        clearTimeout(timeOutEvent);   
+                        timeOutEvent = 0;
+                }).on('touchend', '#touchArea', function(){  
+                    clearTimeout(timeOutEvent);
+                    if(timeOutEvent != 0){
+                        me.isRadio = false;
+                        me.showMore = false;
+                    }   
+                    return false;   
+                });
     },
     methods: {
         imageUploader(e) {
@@ -135,10 +156,6 @@ export default {
         },
         showMoreClick() {
             this.showMore = !this.showMore;
-        },
-        speechClick() {
-            this.isRadio = false;
-            this.showMore = false;
         },
         returnRadioClick() {
             this.isRadio = true;
