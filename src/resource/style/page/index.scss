@@ -26,10 +26,9 @@
         }
         .more-app-icon {
             float: left;
-            @include square(rem(78px), rem(14px));
+            @include square(rem(80px), rem(80px));
             @include circle();
             margin: rem(35px) 0 0 rem(20px);
-            border: 1px solid #333;
             background-color: #fdf4c7;
             color: #333;
             z-index: 1;
@@ -52,7 +51,6 @@
             }
             .speech-or-input-big,
             .speech-or-input-small {
-                @include square(rem(130px), rem(80px));
                 @include circle();
                 background-color: #fdf4c7;
                 &:hover {
@@ -60,6 +58,7 @@
                 }
             }
             .speech-or-input-big {
+                @include square(rem(130px), rem(74px));
                 position: absolute;
                 left: 50%;
                 top: rem(10px);

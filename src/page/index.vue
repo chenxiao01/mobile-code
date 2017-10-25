@@ -6,20 +6,20 @@
         </div>
         <div class="dialog-footer">
             <div class="more-app-icon" @click="showMoreClick">
-                <span class="fa fa-plus"></span>
+                <span class="font-icon icon-plus"></span>
             </div>
             <div class="footer-right" v-if="isRadio">
                 <div class="speech-or-input-big" id="touchArea">
-                    <span class="fa fa-microphone"></span>
+                    <span class="font-icon icon-mic2"></span>
                 </div>
-                <span class="fa fa-user-circle-o user-account-icon"></span>
+                <span class="font-icon icon-user user-account-icon"></span>
             </div>
             <div class="footer-right footer-right-input" v-else>
                 <div class="input-text-wrapper">
                     <input class="input-text" placeholder="请输入问题" v-model="questionInput" />
                 </div>
                 <div class="speech-or-input-small" @click="returnRadioClick">
-                    <span class="fa fa-microphone"></span>
+                    <span class="font-icon icon-mic2"></span>
                 </div>
                 <a href="javascript:void(0);" class="send-btn" @click="sendBtnClick">发送</a>
             </div>
@@ -31,25 +31,25 @@
                         value="imageValue"
                         @change="imageUploader"/>
                     <div class="more-app-container-app-imgbox">
-                        <span class="fa fa-camera"></span>
+                        <span class="font-icon icon-camera"></span>
                     </div>
                     <p class="more-app-container-app-text">拍摄</p>
                 </div>
                 <div class="more-app-container-app">
                     <div class="more-app-container-app-imgbox">
-                        <span class="fa fa-coffee"></span>
+                        <span class="font-icon icon-food"></span>
                     </div>
                     <p class="more-app-container-app-text">饮食管理</p>
                 </div>
                 <div class="more-app-container-app">
                     <div class="more-app-container-app-imgbox">
-                        <span class="fa fa-bicycle"></span>
+                        <span class="font-icon icon-sport"></span>
                     </div>
                     <p class="more-app-container-app-text">运动管理</p>
                 </div>
                 <div class="more-app-container-app">
                     <div class="more-app-container-app-imgbox">
-                        <span class="fa fa-stethoscope"></span>
+                        <span class="font-icon icon-health"></span>
                     </div>
                     <p class="more-app-container-app-text">上传报告</p>
                 </div>
@@ -131,7 +131,7 @@ export default {
                     let blob = audioData.encodeWAV();;
                     console.log(blob);
                     var wavfile = new File([blob], "voice_8000.wav");
-                    uploadImage('/xiaozhi/haha?method=upload', {upload_file: wavfile})
+                    uploadImage('/?method=upload', {upload_file: wavfile})
                         .then(resp => {
                             if (!resp.status) {
                                 Toast('上传失败请重试！');
@@ -142,7 +142,7 @@ export default {
                                     content: resp.data
                                 }
                             });
-                            $.get('/xiaozhi/haha/?method=voice_rec', {path: resp.data},
+                            $.get('/?method=voice_rec', {path: resp.data},
                                 res => {
                                     console.log(res);
                                     me.dialogueComponents.push({
@@ -193,7 +193,7 @@ export default {
             reader.readAsDataURL(img);
             reader.onload = function(e){ // reader onload start  
                 // 上传图片
-                uploadImage('/xiaozhi/haha?method=upload', {upload_file: dataURItoBlob(e.target.result)})
+                uploadImage('/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
                     .then(resp => {
                         if (!resp.status) {
                             Toast('上传失败请重试！');
@@ -206,7 +206,7 @@ export default {
                                 avatar: '../resource/image/user.jpeg'
                             }
                         });
-                        $.get('/xiaozhi/haha?method=dish_rec', {
+                        $.get('/?method=dish_rec', {
                             path: data
                         }, res => {
                             me.showMore = false;
@@ -240,7 +240,7 @@ export default {
                 return;
             }
             const me = this;
-            $.get('/xiaozhi/haha?method=language_rec', {
+            $.get('/?method=language_rec', {
                 content: this.questionInput
             }, resp => {
                 me.addDialogueComponents('userSpeakText', {
