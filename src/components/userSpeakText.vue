@@ -8,6 +8,15 @@
                 <div class="arrow-bg"></div>
             </div>
         </div>
+        <div class="user-speak-text-box"
+             v-else-if="userInfo.content.indexOf('.wav') !== -1">
+             <audio :src="userInfo.content" controls="controls">
+             您的浏览器不支持 audio 标签。
+             </audio>
+             <div class="left-arrow">
+                 <div class="arrow-bg"></div>
+             </div>
+         </div>
         <div class="user-speak-text-box" v-else>
             <div>{{userInfo.content}}</div>
             <div class="right-arrow">

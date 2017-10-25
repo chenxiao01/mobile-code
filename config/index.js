@@ -30,12 +30,14 @@ module.exports = {
     proxyTable: {
         '/xiaozhi': {
             target: 'http://127.0.0.1:8604/', // 你接口的域名
+            // target: 'https://gzhxy-map-ab-offline00.gzhxy:8604/',
             secure: false,
             changeOrigin: false,
             pathRewrite: {'^/xiaozhi/haha': ''}
         },
         '/data': {
             target: 'http://127.0.0.1:8604/', // 你接口的域名
+            // target: 'https://gzhxy-map-ab-offline00.gzhxy:8604/',
             secure: false,
             changeOrigin: false
         }
