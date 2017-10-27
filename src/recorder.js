@@ -6,6 +6,10 @@ function audioHandler(context = {}, config = {}) {
         inputSampleBits: 16,       //输入采样数位 8, 16
         outputSampleRate: config.sampleRate || 8000,    //输出采样率
         oututSampleBits: config.sampleBits || 16,       //输出采样数位 8, 16
+        clearInput: function () {
+            this.buffer = [];
+            this.size = 0;
+        },
         input: function (data) {
             this.buffer.push(new Float32Array(data));
             this.size += data.length;

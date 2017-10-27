@@ -18,6 +18,10 @@
         padding: rem(10px);
         line-height: rem(50px);
         margin-right: rem(120px);
+        a {
+            display: inline-block;
+            margin-right: rem(10px);
+        }
         .left-arrow,
         .arrow-bg {
             position: absolute;
@@ -50,5 +54,8 @@
         img {
             width: rem(80px);
         }
+    }
+    video {
+        background-color: #ccc;
     }
 }

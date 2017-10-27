@@ -28,6 +28,5 @@
 @mixin column-flex() {
     display: -webkit-flex; /* Safari */
     display: flex;
-    flex-flow: column | nowrap;
     justify-content: space-between;
 }

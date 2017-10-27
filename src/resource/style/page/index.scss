@@ -136,4 +136,52 @@
             }
         }
     }
+    .delete-button,
+    .return-button,
+    #selfInfo-test {
+        @include square(rem(60px), rem(30px));
+        background-color: #000;
+        opacity: 0.6;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 100;
+    }
+    .return-button {
+        position: absolute;
+        @include square(rem(100px));
+        left: 0;
+        opacity: 0;
+    }
+    #selfInfo-test {
+        position: absolute;
+        left: rem(50px);
+        top: rem(840px);
+        @include square(rem(180px));
+        opacity: 0;
+    }
+    .guide-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 10000;
+    }
+    .guide-mask {
+        height: 100%;
+        width: 100%;
+        background-color: #000;
+        opacity: 0.6;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
 }
+.selfInfo-page {
+    padding: 0;
+    width: 100%;
+    img {width: 100%;}
+}
+
