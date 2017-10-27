@@ -1,12 +1,12 @@
 <template>
     <div id="xiaozhi-wrapper">
         <div class="dialog-container page" :style="{display: !selfTest && !selfInfoShow ? 'block' : 'none'}">
-            <img class="guide-img" data-index="0" src="../resource/image/step1.png" />
+            <!-- <img class="guide-img" data-index="0" src="../resource/image/step1.png" />
             <img class="guide-img hide" data-index="1" src="../resource/image/step2.png" />
             <img class="guide-img hide" data-index="2" src="../resource/image/step3.png" /> 
             <img class="guide-img hide" data-index="3" src="../resource/image/step4.png" />
             <div class="guide-mask"></div>
-            <mt-header fixed title="小智"></mt-header>
+            <div class="white-mask"></div> -->
             <div class="dialog-panel">
                 <div :is="item.component" :userInfo="item.userInfo" v-for="item in dialogueComponents"></div>
             </div>
@@ -42,13 +42,15 @@
                         <p class="more-app-container-app-text">拍摄</p>
                     </div>
                     <div class="more-app-container-app">
-                        <div class="more-app-container-app-imgbox">
+                        <div class="more-app-container-app-imgbox"
+                        @click="foodManageClick('今天吃什么')">
                             <span class="font-icon icon-food"></span>
                         </div>
                         <p class="more-app-container-app-text">饮食管理</p>
                     </div>
                     <div class="more-app-container-app">
-                        <div class="more-app-container-app-imgbox">
+                        <div class="more-app-container-app-imgbox"
+                            @click="foodManageClick('今天做什么运动')">
                             <span class="font-icon icon-sport"></span>
                         </div>
                         <p class="more-app-container-app-text">运动管理</p>
@@ -104,7 +106,7 @@ export default {
                 {
                     component: 'otherAnswerText',
                     userInfo: {
-                        content: 'hi～您好，我是您的专属AI健康小助手小智，为您的健康生活而服务。下面向您介绍我的使用方法哦：'
+                        content: 'hi～您好，我是您的专属AI健康小助手小智，借助百度的文字识别，图像识别，语音识别，大数据，百度百科和百度经验等给您提供全方位的健康服务。下面向您介绍我的使用方法哦：'
                             + '<br />'
                             + '【询问疾病】  糖尿病是什么？<br />'
                             + '【饮食管理】  今天吃什么？<br />'
@@ -112,19 +114,21 @@ export default {
                             + '随着小智的成长，会开放越来越多的功能哦',
                         avatar: '../resource/image/user.jpeg'
                     }
-                },
-                {
+                }
+            ]
+        }
+    },
+    mounted: function () {
+        setTimeout(function () {
+            me.dialogueComponents.push({
                     component: 'otherAnswerText',
                     userInfo: {
                         content: '为了给您提供更好的服务，请填写以下问卷让小智更加了解您的健康状况：<br />'
                             + '<a href="javascript:void(0);" class="self-test">健康自测入口</a>',
                         avatar: '../resource/image/user.jpeg'
                     }
-                }
-            ]
-        }
-    },
-    mounted: function () {
+                });
+        }, 3000);
         let timeOutEvent = 0;
         const me = this;
         let $parentEle = $('.dialog-footer');
@@ -261,10 +265,6 @@ export default {
             });
         });
 
-        if (localStorage.getItem('guide-mask')) {
-            $('.guide-img').addClass('hide');
-            $('.guide-mask').addClass('hide');
-        }
         $('.guide-img').click(function (e) {
             let index = e.target.dataset && +e.target.dataset.index;
             if (index < 3) {
@@ -274,11 +274,39 @@ export default {
             else {
                 $(this).addClass('hide');
                 $('.guide-mask').addClass('hide');
-                localStorage.setItem('guide-mask', true);
+                $('.white-mask').addClass('hide');
             }
         });
     },
     methods: {
+        foodManageClick(text) {
+            const me = this;
+            $.get('/?method=language_rec', {
+                content: text
+            }, resp => {
+                me.showMore = false;
+                me.addDialogueComponents('userSpeakText', {
+                    userInfo: {
+                        content: text,
+                        avatar: '../resource/image/user.jpeg'
+                    }
+                });
+                me.questionInput = '';
+                let html;
+                if (resp.status) {
+                    html = resp.data.output + '<br />';
+                    if (resp.data.wapCatalog && resp.data.wapCatalog.length) {
+                        html += resp.data.wapCatalog.join('');
+                    }
+                }
+                me.addDialogueComponents('otherAnswerText', {
+                    userInfo: {
+                        content: html || defaultTip,
+                        avatar: '../resource/image/xiaozhi.jpg'
+                    }
+                });
+            });
+        },
         userInfoClick() {
             this.selfInfoShow = true;
         },
@@ -292,6 +320,7 @@ export default {
                 // 上传图片
                 uploadImage('/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
                     .then(resp => {
+                        me.showMore = false;
                         if (!resp.status) {
                             Toast('上传失败请重试！');
                         }
@@ -306,7 +335,6 @@ export default {
                         $.get('/?method=health_rec', {
                             path: data
                         }, res => {
-                            me.showMore = false;
                             let stringText = '';
                             res.data.forEach(item => {
                                 stringText += item.join('<br />') + '<br />';
@@ -331,6 +359,7 @@ export default {
                 // 上传图片
                 uploadImage('/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
                     .then(resp => {
+                        me.showMore = false;
                         if (!resp.status) {
                             Toast('上传失败请重试！');
                         }
@@ -345,16 +374,24 @@ export default {
                         $.get('/?method=dish_rec', {
                             path: data
                         }, res => {
-                            me.showMore = false;
-                            let stringText = '菜品名称：' + res.data.name + '<br/>'
-                                + '卡路里含量：' + res.data.calorie + '<br />'
-                                + '置信度：' + res.data.probability;
-                            me.addDialogueComponents('otherAnswerText', {
-                                userInfo: {
-                                    content: stringText,
-                                    avatar: '../resource/image/xiaozhi.jpg'
-                                }
-                            });
+                            if (!res.status) {
+                                me.addDialogueComponents('otherAnswerText', {
+                                    userInfo: {
+                                        content: '您好，这份食物小智不认识，不能给您计算卡路里了哦。',
+                                        avatar: '../resource/image/xiaozhi.jpg'
+                                    }
+                                });
+                            }
+                            else {
+                                let stringText = res.data.name + '中含有' + res.data.calorie
+                                    + '大卡，已记入您的饮食记录，好吃也不要贪多哦！';
+                                me.addDialogueComponents('otherAnswerText', {
+                                    userInfo: {
+                                        content: stringText,
+                                        avatar: '../resource/image/xiaozhi.jpg'
+                                    }
+                                });
+                            }
                         });
                     });
             }

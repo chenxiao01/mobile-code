@@ -7,9 +7,10 @@
     .dialog-panel {
         box-sizing: border-box;
         height: 100%;
-        padding: rem(100px) 0 rem(160px) 0;
+        padding: 0 0 rem(160px) 0;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
+        background-color: #F9F9F9;
     }
     .dialog-footer {
         display: -webkit-box;
@@ -18,7 +19,7 @@
         position: absolute;
         z-index: 500;
         bottom: 0;
-        height: rem(150px);
+        height: rem(168px);
         width: 100%;
         background-color: #FFF;
         .mint-actionsheet {
@@ -26,15 +27,11 @@
         }
         .more-app-icon {
             float: left;
-            @include square(rem(80px), rem(80px));
+            @include square(rem(100px), rem(100px));
             @include circle();
-            margin: rem(35px) 0 0 rem(20px);
-            background-color: #fdf4c7;
+            margin: rem(34px) 0 0 rem(20px);
             color: #333;
             z-index: 1;
-        }
-        .more-app-icon:hover {
-            background-color: #f9db57;
         }
         .footer-right-input {
             @include column-flex();
@@ -46,27 +43,25 @@
             width: 100%;
             .user-account-icon {
                 float: right;
-                margin: rem(35px) rem(20px) 0 0;
-                font-size: rem(80px);
+                margin: rem(38px) rem(20px) 0 0;
+                font-size: rem(95px);
             }
             .speech-or-input-big,
             .speech-or-input-small {
                 @include circle();
-                background-color: #fdf4c7;
-                &:hover {
-                    background-color: #fdf4c7;
-                }
             }
             .speech-or-input-big {
-                @include square(rem(130px), rem(74px));
+                @include square(rem(140px), rem(90px));
                 position: absolute;
                 left: 50%;
-                top: rem(10px);
-                margin-left: rem(-65px);
+                top: rem(14px);
+                margin-left: rem(-70px);
+                background-color:  #FFDA30;
             }
             .speech-or-input-small {
-                @include square(rem(80px), rem(40px));
+                @include square(rem(78px), rem(44px));
                 margin: 0 rem(20px);
+                border: rem(1px) solid #000;
             }
             .input-text-wrapper,
             .speech-or-input-small,
@@ -84,47 +79,43 @@
                     text-align: left;
                     padding: 0 rem(20px);
                     border: none;
-                    border-bottom: 1px solid #999;
+                    border-bottom: 1px solid #FFDA30;
                     outline:none;
                 }
             }
             .send-btn {
-                @include square(rem(60px), rem(28px));
+                @include square(rem(80px), rem(34px), rem(125px));
                 @include circle(2px);
-                padding: 0 rem(10px);
-                margin: rem(45px) rem(20px) 0 0;
-                color: #fff;
+                margin: rem(38px) rem(20px) 0 0;
+                color: #000;
                 text-decoration: none;
-                background-color: #c8c8c8;
+                background-color: #FFDA30;
             }
         }
         .more-app-container {
             @include column-flex();
             justify-content: space-around;
             align-items: center;
-            height: rem(226px);
+            height: rem(280px);
             width: 100%;
             position: absolute;
-            top: rem(-226px);
+            top: rem(-280px);
             border-top: 1px solid #b6b6b6;
             color: #4a4a4a;
             background-color: #FFF;
             &-app {
                 position: relative;
                 &-imgbox {
-                    @include square(rem(128px), rem(60px));
-                    @include circle(10px);
-                    border: 1px solid #f9db57;
-                    background-color: #fdf4c7;
-                }
-                &:hover {
-                    &-imgbox {
-                        background-color: #fbea91;
-                    }
+                    @include square(rem(152px), rem(90px), rem(152px));
+                    @include circle(16px);
+                    border: 1px solid #979797;
+                    background-color: #F7F7F6;
+                    color: #000;
                 }
                 &-text {
                     text-align: center;
-                    line-height: rem(40px);
+                    line-height: rem(34px);
+                    color: #4A4A4A;
                 }
                 &-input {
                     position: absolute;
@@ -168,15 +159,21 @@
         width: 100%;
         z-index: 10000;
     }
-    .guide-mask {
+    .guide-mask,
+    .white-mask {
         height: 100%;
         width: 100%;
         background-color: #000;
-        opacity: 0.6;
+        opacity: 0.7;
         position: fixed;
         top: 0;
         right: 0;
         z-index: 9999;
+    }
+    .white-mask {
+        background-color: #FFF;
+        z-index: 9998;
+        opacity: 1;
     }
 }
 .selfInfo-page {
