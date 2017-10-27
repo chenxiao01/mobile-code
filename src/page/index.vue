@@ -1,13 +1,19 @@
 <template>
     <div id="xiaozhi-wrapper">
         <div class="dialog-container page" :style="{display: !selfTest && !selfInfoShow ? 'block' : 'none'}">
-            <!-- <img class="guide-img" data-index="0" src="../resource/image/step1.png" />
+            <img class="guide-img" data-index="0" src="../resource/image/step1.png" />
             <img class="guide-img hide" data-index="1" src="../resource/image/step2.png" />
             <img class="guide-img hide" data-index="2" src="../resource/image/step3.png" /> 
             <img class="guide-img hide" data-index="3" src="../resource/image/step4.png" />
             <div class="guide-mask"></div>
-            <div class="white-mask"></div> -->
+            <div class="white-mask"></div>
             <div class="dialog-panel">
+                <div class="audio-active hide">
+                    <div class="guide-mask"></div>
+                    <div class="audio-box">
+                        <img src="../resource/image/audio.gif" />
+                    </div>
+                </div>
                 <div :is="item.component" :userInfo="item.userInfo" v-for="item in dialogueComponents"></div>
             </div>
             <div class="dialog-footer">
@@ -169,7 +175,7 @@ export default {
                     let blob = audioData.encodeWAV();
                     console.log(blob);
                     var wavfile = new File([blob], "voice_8000.wav");
-                    uploadImage('/?method=upload', {upload_file: wavfile})
+                    uploadImage('/xiaozhi/haha/?method=upload', {upload_file: wavfile})
                         .then(resp => {
                             audioData.clearInput();
                             if (!resp.status) {
@@ -214,6 +220,7 @@ export default {
                     timeOutEvent = 0;
                     // 长按事件触发
                     console.log('录音开始...');
+                    $('.audio-active').removeClass('hide');
                     audioInput.connect(recorder);
                     recorder.connect(audio_context.destination);
                 }, 500);
@@ -229,6 +236,7 @@ export default {
                 } else {
                     uploadMedia();
                     console.log('录音结束，导出中...');
+                    $('.audio-active').addClass('hide');
                 }
                 return false;   
             });
@@ -281,7 +289,7 @@ export default {
     methods: {
         foodManageClick(text) {
             const me = this;
-            $.get('/?method=language_rec', {
+            $.get('/xiaozhi/haha/?method=language_rec', {
                 content: text
             }, resp => {
                 me.showMore = false;
@@ -318,7 +326,7 @@ export default {
             reader.readAsDataURL(img);
             reader.onload = function(e){ // reader onload start  
                 // 上传图片
-                uploadImage('/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
+                uploadImage('/xiaozhi/haha/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
                     .then(resp => {
                         me.showMore = false;
                         if (!resp.status) {
@@ -357,7 +365,7 @@ export default {
             reader.readAsDataURL(img);
             reader.onload = function(e){ // reader onload start  
                 // 上传图片
-                uploadImage('/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
+                uploadImage('/xiaozhi/haha/?method=upload', {upload_file: dataURItoBlob(e.target.result)})
                     .then(resp => {
                         me.showMore = false;
                         if (!resp.status) {
@@ -413,7 +421,7 @@ export default {
                 return;
             }
             const me = this;
-            $.get('/?method=language_rec', {
+            $.get('/xiaozhi/haha/?method=language_rec', {
                 content: this.questionInput
             }, resp => {
                 me.addDialogueComponents('userSpeakText', {

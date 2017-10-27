@@ -175,6 +175,29 @@
         z-index: 9998;
         opacity: 1;
     }
+    .audio-active {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        .guide-mask {
+            z-index: 1;
+        }
+        .audio-box {
+            @include square(rem(400px));
+            @include circle(16px);
+            position: absolute;
+            left: 50%;
+            margin-left: rem(-200px);
+            z-index: 2;
+            background-color: #FFF;
+            top: 50%;
+            margin-top: rem(-240px);
+            img {
+                @include square(rem(282px));
+                margin-top: rem(68px);
+            }
+        }
+    }
 }
 .selfInfo-page {
     padding: 0;
